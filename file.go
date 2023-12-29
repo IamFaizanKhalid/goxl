@@ -9,13 +9,13 @@ type File struct {
 	f *excelize.File
 }
 
-// GetDefaultSheet opens and returns the first sheet
-func (f *File) GetDefaultSheet() (*Sheet, error) {
-	return f.GetSheetByIndex(0)
+// OpenDefaultSheet opens and returns the first sheet
+func (f *File) OpenDefaultSheet() (*Sheet, error) {
+	return f.OpenSheetByIndex(0)
 }
 
-// GetSheet opens and returns the sheet with the given name
-func (f *File) GetSheet(name string) (*Sheet, error) {
+// OpenSheet opens and returns the sheet with the given name
+func (f *File) OpenSheet(name string) (*Sheet, error) {
 	r, err := f.f.Rows(name)
 	if err != nil {
 		return nil, err
@@ -26,13 +26,13 @@ func (f *File) GetSheet(name string) (*Sheet, error) {
 	}, nil
 }
 
-// GetSheetByIndex opens and returns the sheet with the given index
-func (f *File) GetSheetByIndex(index int) (*Sheet, error) {
+// OpenSheetByIndex opens and returns the sheet with the given index
+func (f *File) OpenSheetByIndex(index int) (*Sheet, error) {
 	name := f.f.GetSheetName(index)
 	if name == "" {
 		return nil, excelize.ErrSheetNotExist{}
 	}
-	return f.GetSheet(name)
+	return f.OpenSheet(name)
 }
 
 // Close closes the Excel file
